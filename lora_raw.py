@@ -8,3 +8,11 @@ class Lora_raw:
         self.lora = LoRa(mode=LoRa.LORA)
         self.s = socket.socket(socket.AF_LORA, socket.SOCK_RAW)
     
+    def sendText(self, data):
+        self.s.setblocking(True)
+        self.s.send(data)
+        self.s.setblocking(False)
+    
+    def recText(self, size):
+        t = self.s.recv(size)
+        return t
