@@ -1,14 +1,15 @@
 #main code
-from network import LoRa
-import socket
 import machine
 import time
 from acc import Sensor_acc
-#setup LoRa network and socket
-#lora = LoRa(mode=LoRa.LORA)
-#s = socket.socket(socket.AF_LORA, socket.SOCK_RAW)
+from lora_raw import Lora_raw
+
 
 accel = Sensor_acc()
+print('Acc setup')
+#lora_net = Lora_raw()
+#print('Lora setup')
+func = input('Device type(s/n):')
 
 #read from UART
 while True:
