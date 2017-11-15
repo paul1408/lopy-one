@@ -16,6 +16,7 @@ uart.write('Lora setup OK')
 #wait for gateway to ack
 while waitingFoRGate:
     waitingFoRGate = not lora_net.send_msg(id)
+    time.delay(1)
 #transmit
     while True:
         lora_net.send_msg('LoPy_1')
