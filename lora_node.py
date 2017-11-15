@@ -4,7 +4,7 @@ import socket
 import time
 import struct
 
-class Lora_raw:
+class Lora_node:
 
     #package header
     # B: 1 byte for the deviceId
@@ -18,7 +18,6 @@ class Lora_raw:
     # B: 1 byte for the Ok or error messages
     _LORA_PKG_ACK_FORMAT = "!BBB"
 
-    _DEVICE_ID = 0x01
     _STATUS_OK = 100
     _LORA_ACK_SIZE = 3
     _MAX_ACK_TIME = 1000
