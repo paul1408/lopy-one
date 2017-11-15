@@ -3,22 +3,20 @@ import machine
 import time
 from acc import Sensor_acc
 from lora_raw import Lora_raw
+#variables
+waitingFoRGate = True
+id = 0x01
 
-
+#init board and sensors
 accel = Sensor_acc()
-print('Acc setup')
-lora_net = Lora_raw()
-print('Lora setup')
-func = 'm' #m - mobile, s - station 
-var2 = "Ping"
-if func == 'm':
-    #broadcast data
+uart.write('Acc setup OK')
+lora_net = Lora_raw(id)
+uart.write('Lora setup OK')
+
+#wait for gateway to ack
+while waitingFoRGate:
+    waitingFoRGate = lora_net.send_msg(id)
+#transmit
     while True:
-        time.sleep(2)
-        lora_net.sendText(var2)
-else:
-    while True:
-        txt = lora_net.recText(32)
-        print('Received: {}'.format(txt))
-        if (txt == b'Ping'):
-            print('Succesful')
+        lora_net.send_msg('LoPy_1')
+    
