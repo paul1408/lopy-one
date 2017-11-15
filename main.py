@@ -16,6 +16,7 @@ if func == 'm':
     while True:
         time.sleep(2)
         lora_net.sendText(var2)
+        uart.write(var2)
 else:
     while True:
         txt = lora_net.recText(32)
