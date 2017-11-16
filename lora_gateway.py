@@ -4,7 +4,7 @@ import socket
 import time
 import struct
 
-class Lora_node:
+class Lora_raw:
 
     #package header
     # B: 1 byte for the deviceId
@@ -22,11 +22,11 @@ class Lora_node:
     _LORA_ACK_SIZE = 3
 
 
-    def __init__(self, id):
+    def __init__(self):
         self.lora = LoRa(mode=LoRa.LORA, rx_iq = True)
         self.s = socket.socket(socket.AF_LORA, socket.SOCK_RAW)
 
-    def recv_msg(self):
+    def rec_msg(self):
         pkg = self.s.recv(512)
         
         if(len(pkg) > 2):
@@ -38,3 +38,5 @@ class Lora_node:
                 ack = struct.pack(self._LORA_PKG_ACK_FORMAT, dev_id, 1, self._STATUS_OK)
                 self.s.send(ack)
                 return msg
+        m = ''        
+        return m
