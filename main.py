@@ -9,8 +9,8 @@ _MAX_NODES = 1
 nodes = list()
 
 #init board and sensors
-accel = Sensor_acc()
-uart.write('Acc setup OK \r\n')
+#accel = Sensor_acc()
+#uart.write('Acc setup OK \r\n')
 lora_net = Lora_gateway()
 uart.write('Lora-gateway setup OK\r\n')
 
@@ -25,8 +25,9 @@ while (nodes_nr < _MAX_NODES):
 uart.write("Network node(s): \r\n")
 for n in nodes:
     uart.write(n)
+uart.write('\r\n')
 #receive
 while True:
     msg = lora_net.rec_msg()
     if not msg == '':
-        uart.write(msg)    
+        uart.write('Received: {}\r\n'.format(msg)) 
