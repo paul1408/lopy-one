@@ -4,7 +4,7 @@ import socket
 import time
 import struct
 
-class Lora_raw:
+class Lora_gateway:
 
     #package header
     # B: 1 byte for the deviceId
