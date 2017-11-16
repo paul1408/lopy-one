@@ -31,22 +31,22 @@ class Lora_node:
 
     def check_ack_time(self, start_t):
         current_t = time.ticks_ms()
-        return (current_t - start_t < _MAX_ACK_TIME)
+        return (current_t - start_t < self._MAX_ACK_TIME)
 
     def send_msg(self, msg):
-        retry = _RETRY_COUNT
+        retry = self._RETRY_COUNT
         while (retry > 0):
             retry -= 1
-            pkg = struct.pack(_LORA_PKG_FORMAT % len(msg), 
-                                _DEVICE_ID, len(msg), msg)
+            pkg = struct.pack(self._LORA_PKG_FORMAT % len(msg), 
+                                self._DEVICE_ID, len(msg), msg)
             self.s.send(pkg)
 
             start_time = time.ticks_ms()
-            while(check_ack_time):
+            while(self.check_ack_time(start_time)):
                 recv_ack = self.s.recv(256)
                 if (len(recv_ack) == 3):
-                    dev_id, pkg_len, status = struct.unpack(_LORA_PKG_ACK_FORMAT, recv_ack)
-                    if(dev_id == _DEVICE_ID and r_msg_id == msg_id and status == _STATUS_OK):
+                    dev_id, pkg_len, status = struct.unpack(self._LORA_PKG_ACK_FORMAT, recv_ack)
+                    if(dev_id == self._DEVICE_ID and r_msg_id == msg_id and status == self._STATUS_OK):
                         return True
                     else:
                         return False

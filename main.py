@@ -9,15 +9,17 @@ id = 0x01
 
 #init board and sensors
 accel = Sensor_acc()
-uart.write('Acc setup OK')
+uart.write('Acc setup OK\n')
 lora_net = Lora_node(id)
-uart.write('Lora setup OK')
+uart.write('Lora-node setup OK\n')
 
 #wait for gateway to ack
+uart.write('Broadcasting node %d\n' % id)
 while waitingFoRGate:
-    waitingFoRGate = not lora_net.send_msg(id)
+    waitingFoRGate = not lora_net.send_msg('%d' % id)
     time.delay(1)
 #transmit
     while True:
-        lora_net.send_msg('LoPy_1')
-    
+        lora_net.send_msg('LoPy_%d' % id)
+        uart.write('LoPy_%d\n  ' % id)
+        time.delay_ms(200)
