@@ -40,13 +40,14 @@ class Lora_node:
             pkg = struct.pack(self._LORA_PKG_FORMAT % len(msg), 
                                 self._DEVICE_ID, len(msg), msg)
             self.s.send(pkg)
-
             start_time = time.ticks_ms()
             while(self.check_ack_time(start_time)):
                 recv_ack = self.s.recv(256)
                 if (len(recv_ack) == 3):
                     dev_id, pkg_len, status = struct.unpack(self._LORA_PKG_ACK_FORMAT, recv_ack)
-                    if(dev_id == self._DEVICE_ID and r_msg_id == msg_id and status == self._STATUS_OK):
+                    if(dev_id == self._DEVICE_ID and status == self._STATUS_OK):
                         return True
                     else:
                         return False
+                else:
+                    return False
