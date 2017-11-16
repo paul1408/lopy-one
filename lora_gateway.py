@@ -33,8 +33,8 @@ class Lora_node:
             pkg_len = pkg[1]
             #unpack
             if(len(pkg) == pkg_len + 2):
-                dev_id, pkg_len, msg = struct.unpack(_LORA_PKG_FORMAT % pkg_len, pkg)
+                dev_id, pkg_len, msg = struct.unpack(self._LORA_PKG_FORMAT % pkg_len, pkg)
                 #acknoledge
-                ack = struct.pack(_LORA_PKG_ACK_FORMAT, dev_id, 1, _STATUS_OK)
+                ack = struct.pack(self._LORA_PKG_ACK_FORMAT, dev_id, 1, self._STATUS_OK)
                 self.s.send(ack)
                 return msg

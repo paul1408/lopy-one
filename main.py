@@ -10,9 +10,9 @@ nodes = list()
 
 #init board and sensors
 accel = Sensor_acc()
-uart.write('Acc setup OK')
+uart.write('Acc setup OK ')
 lora_net = Lora_raw(id)
-uart.write('Lora-gateway setup OK')
+uart.write('Lora-gateway setup OK ')
 
 #wait for nodes broadcast
 while (nodes_nr < _MAX_NODES):
